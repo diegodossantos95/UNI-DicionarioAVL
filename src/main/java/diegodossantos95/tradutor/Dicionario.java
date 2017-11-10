@@ -13,8 +13,31 @@ public class Dicionario {
 	private Dicionario pai;
 	private Dicionario esquerda;
 	private Dicionario direita;
-	private int balanceamento;
 	
+	public Dicionario getPai() {
+		return pai;
+	}
+
+	public void setPai(Dicionario pai) {
+		this.pai = pai;
+	}
+
+	public Dicionario getEsquerda() {
+		return esquerda;
+	}
+
+	public void setEsquerda(Dicionario esquerda) {
+		this.esquerda = esquerda;
+	}
+
+	public Dicionario getDireita() {
+		return direita;
+	}
+
+	public void setDireita(Dicionario direita) {
+		this.direita = direita;
+	}
+
 	public Dicionario(String palavra, LinkedList<String> definicoes) {
 		super();
 		this.palavra = palavra;
@@ -31,6 +54,10 @@ public class Dicionario {
 		return this.definicoes;
 	}
 	
+	public String getPalavra() {
+		return palavra;
+	}
+
 	@Override
 	public String toString() {
 		LinkedList<String> conteudo = this.definicoes;
