@@ -23,7 +23,7 @@ public class Tradutor {
 		 */
 		try (Stream<String> stream = Files.lines(Paths.get(arquivo))) {
 			this.arvore = new ArvoreAVL(); 
-			stream.forEach(this::carregaArvore);
+			stream.forEach(this::parseLinhaToDicionario);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -53,8 +53,7 @@ public class Tradutor {
 		 * ingles e lista de possiveis traducoes.
 		 */
 		try{
-			Dicionario dicionario = new Dicionario(palavra, definicoes);
-			this.arvore.adicionar(dicionario);
+			this.adicionarDicionario(palavra, definicoes);
 		}catch(Exception e){
 			//TODO: tratar errors
 			e.printStackTrace();
@@ -71,7 +70,7 @@ public class Tradutor {
 			List<Dicionario> dicionarios = this.arvore.getConteudo();
 			String conteudo = dicionarios.stream()
 				  .map(Dicionario::toString)
-				  .collect(Collectors.joining("%n"));
+				  .collect(Collectors.joining(System.lineSeparator()));
 			Files.write(Paths.get(arquivo), conteudo.getBytes());
 		} catch (IOException e) {
 			//TODO: tratar errors
@@ -82,13 +81,18 @@ public class Tradutor {
 	/*
 	 * Metodos privados
 	 */
-	private void carregaArvore(String linha){
-		Dicionario dicionario = this.criaDicionario(linha);
+	private void parseLinhaToDicionario(String linha){
+		LinkedList<String> palavras = this.parseLinhaToList(linha);
+		this.adicionarDicionario(palavras.pop(), palavras);
+	}
+	
+	private void adicionarDicionario(String palavra, List<String> definicoes){
+		Dicionario dicionario = new Dicionario(palavra, definicoes);
 		this.arvore.adicionar(dicionario);
 	}
 	
-	private Dicionario criaDicionario(String linha){
+	private LinkedList<String> parseLinhaToList(String linha){
 		LinkedList<String> palavras = new LinkedList<String>(Arrays.asList(linha.split("#")));
-		return new Dicionario(palavras.remove(0), palavras);
+		return palavras;
 	}
 }
