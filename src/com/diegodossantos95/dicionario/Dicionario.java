@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Dicionario {
+	//TODO: Documentacao
+
 	private String palavra; 
 	private LinkedList<String> definicoes;
 	
@@ -27,5 +29,12 @@ public class Dicionario {
 	
 	public LinkedList<String> getDefinicoes(){
 		return this.definicoes;
+	}
+	
+	@Override
+	public String toString() {
+		LinkedList<String> conteudo = this.definicoes;
+		conteudo.add(0, this.palavra);
+		return String.join("#", conteudo);
 	}
 }
