@@ -12,5 +12,7 @@ public class Main {
 		list.add("traducao111");
 		tra.insereTraducao("palavra322", list);
 		System.out.println(tra.traduzPalavra("palavra322"));
+		
+		tra.salvaDicionario("dicionario2.txt");
 	}
 }
