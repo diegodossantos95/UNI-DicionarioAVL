@@ -1,4 +1,4 @@
-package com.diegodossantos95.dicionario;
+package main.java.diegodossantos95.tradutor;
 
 import java.util.LinkedList;
 

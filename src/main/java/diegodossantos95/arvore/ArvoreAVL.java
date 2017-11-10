@@ -1,7 +1,9 @@
-package com.diegodossantos95.dicionario;
+package main.java.diegodossantos95.arvore;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import main.java.diegodossantos95.tradutor.Dicionario;
 
 public class ArvoreAVL {
 	//TODO: Documentacao

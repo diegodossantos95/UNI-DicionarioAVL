@@ -1,4 +1,4 @@
-package com.diegodossantos95.dicionario;
+package main.java.diegodossantos95.tradutor;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,6 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import main.java.diegodossantos95.arvore.ArvoreAVL;
 
 public class Tradutor {
 
