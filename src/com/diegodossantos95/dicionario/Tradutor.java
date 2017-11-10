@@ -3,14 +3,15 @@ package com.diegodossantos95.dicionario;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Tradutor {
 
+	//TODO: Documentacao
 	private ArvoreAVL arvore;
 	
 	public void carregaDicionario(String arquivo) {
@@ -38,6 +39,7 @@ public class Tradutor {
 			return dicionario.getDefinicoes(); 
 		}catch(Exception e){
 			//TODO: tratar errors
+			e.printStackTrace();
 			return new LinkedList<String>();
 		}
 	}
@@ -53,17 +55,26 @@ public class Tradutor {
 			this.arvore.adicionar(dicionario);
 		}catch(Exception e){
 			//TODO: tratar errors
+			e.printStackTrace();
 		}
 	}
 
-	public void salvaDicionario(String arq) {
+	public void salvaDicionario(String arquivo) {
 		/*
 		 * Salva o arquivo de dicionario
 		 * (dicionario.dat) com as respectivas
 		 * definicoes baseado no conteudo da arvore AVL
 		 */
-		
-		//TODO
+		try {
+			List<Dicionario> dicionarios = this.arvore.getConteudo();
+			String conteudo = dicionarios.stream()
+				  .map(Dicionario::toString)
+				  .collect(Collectors.joining("%n"));
+			Files.write(Paths.get(arquivo), conteudo.getBytes());
+		} catch (IOException e) {
+			//TODO: tratar errors
+			e.printStackTrace();
+		}
 	}
 	
 	/*
@@ -78,5 +89,4 @@ public class Tradutor {
 		LinkedList<String> palavras = new LinkedList<String>(Arrays.asList(linha.split("#")));
 		return new Dicionario(palavras.remove(0), palavras);
 	}
-
 }

@@ -1,6 +1,11 @@
 package com.diegodossantos95.dicionario;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ArvoreAVL {
+	//TODO: Documentacao
+
 	private Dicionario raiz;
 	
 	public void adicionar(Dicionario dicionario){
@@ -15,5 +20,13 @@ public class ArvoreAVL {
 		return raiz;
 		
 		//TODO: procurar o dicinario na arvore pela chave(palavra)
+	}
+	
+	public List<Dicionario> getConteudo(){
+		List<Dicionario> conteudo = new ArrayList<Dicionario>();
+		conteudo.add(raiz);
+		return conteudo;
+		
+		//TODO: percorrer arvore em ordem e retornar conteudo em List
 	}
 }
