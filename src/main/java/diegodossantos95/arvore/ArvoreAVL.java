@@ -20,9 +20,21 @@ public class ArvoreAVL {
 	}
 	
 	public Dicionario procurarPelaPalavra(String palavra){
-		return raiz;
+		Dicionario temp = this.raiz;
 		
-		//TODO: procurar o dicinario na arvore pela chave(palavra)
+		while(temp != null) {
+			if(this.compararPalavras(palavra, temp.getPalavra()) == 0) {
+				return temp;
+			}
+			if(this.compararPalavras(palavra, temp.getPalavra()) < 0) { //Esquerda = menor
+				temp = temp.getEsquerda();
+			}
+			if(this.compararPalavras(palavra, temp.getPalavra()) > 0) { //Direita = maior
+				temp = temp.getDireita();
+			}
+		}
+		
+		return null;
 	}
 	
 	public List<Dicionario> getConteudo(){
@@ -72,8 +84,8 @@ public class ArvoreAVL {
 		/*
 		 * Compara as palavras ignorando acentos e case
 		 * Retorna 0 se for igual
-		 * Retorna -1 se o comparador for antes de base
-		 * Retorna 1 se o comparador for depois de base
+		 * Retorna -1 se o comparador for menor que base
+		 * Retorna 1 se o comparador for maior que base
 		 */
 		Collator collator = Collator.getInstance(Locale.US);
         collator.setStrength(Collator.PRIMARY);
