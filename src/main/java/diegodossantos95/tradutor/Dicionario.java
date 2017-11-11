@@ -37,12 +37,6 @@ public class Dicionario {
 	public void setDireita(Dicionario direita) {
 		this.direita = direita;
 	}
-
-	public Dicionario(String palavra, LinkedList<String> definicoes) {
-		super();
-		this.palavra = palavra;
-		this.definicoes = definicoes;
-	}
 	
 	public Dicionario(String palavra, List<String> definicoes) {
 		super();
