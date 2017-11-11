@@ -23,13 +23,11 @@ public class ArvoreAVL {
 		Dicionario temp = this.raiz;
 		
 		while(temp != null) {
-			if(this.compararPalavras(palavra, temp.getPalavra()) == 0) {
+			if(temp.compararPalavra(palavra) == 0) {
 				return temp;
-			}
-			if(this.compararPalavras(palavra, temp.getPalavra()) < 0) { //Esquerda = menor
+			} else if(temp.compararPalavra(palavra) < 0) { //Esquerda = menor
 				temp = temp.getEsquerda();
-			}
-			if(this.compararPalavras(palavra, temp.getPalavra()) > 0) { //Direita = maior
+			} else if(temp.compararPalavra(palavra) > 0) { //Direita = maior
 				temp = temp.getDireita();
 			}
 		}
@@ -42,7 +40,6 @@ public class ArvoreAVL {
 		this.percorrerEmOrdem(this.raiz, lista);
 		return lista;
 	}
-	
 	
 	/*
 	 * Metodos privados
@@ -57,7 +54,7 @@ public class ArvoreAVL {
 	}
 	
 	private void adicionar(Dicionario raiz, Dicionario adicionar){
-		if(this.compararPalavras(adicionar.getPalavra(), raiz.getPalavra()) < 0){ //Esquerda
+		if(raiz.compararPalavra(adicionar.getPalavra()) < 0){ //Esquerda
 			if(raiz.getEsquerda() == null){
 				raiz.setEsquerda(adicionar);
 				adicionar.setPai(raiz);
@@ -65,7 +62,7 @@ public class ArvoreAVL {
 			}else{
 				this.adicionar(raiz.getEsquerda(), adicionar);
 			}
-		}else if(this.compararPalavras(adicionar.getPalavra(), raiz.getPalavra()) > 0){ //Direita
+		}else if(raiz.compararPalavra(adicionar.getPalavra()) > 0){ //Direita
 			if(raiz.getDireita() == null){
 				raiz.setDireita(adicionar);
 				adicionar.setPai(raiz);
@@ -73,23 +70,12 @@ public class ArvoreAVL {
 			}else{
 				this.adicionar(raiz.getDireita(), adicionar);
 			}
+		}else if(raiz.compararPalavra(adicionar.getPalavra()) == 0) {
+			raiz.mergeDefinicoes(adicionar.getDefinicoes());
 		}
 	}
 	
 	private void verificarBalanceamento(Dicionario dicionario){
 		//TODO: algoritmo para verificar balanceamento
-	}
-	
-	private Integer compararPalavras(String comparador, String base){
-		/*
-		 * Compara as palavras ignorando acentos e case
-		 * Retorna 0 se for igual
-		 * Retorna -1 se o comparador for menor que base
-		 * Retorna 1 se o comparador for maior que base
-		 */
-		Collator collator = Collator.getInstance(Locale.US);
-        collator.setStrength(Collator.PRIMARY);
-        
-        return collator.compare(comparador, base);
 	}
 }
