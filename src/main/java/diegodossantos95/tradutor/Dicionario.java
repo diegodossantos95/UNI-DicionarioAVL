@@ -86,4 +86,33 @@ public class Dicionario {
 		temp.addAll(novasDefinicoes);
 		this.definicoes = new LinkedList<String>(temp);
 	}
+	
+	public int getAltura() {
+		if (this.getEsquerda() == null && this.getDireita() == null) {
+			return 0;
+		
+		} else if (this.getEsquerda() == null) {
+			return 1 + this.getDireita().getAltura();
+		
+		} else if (this.getDireita() == null) {
+			return 1 + this.getEsquerda().getAltura();
+		
+		} else {
+			return 1 + Math.max(this.getEsquerda().getAltura(), this.getDireita().getAltura());
+		}
+	}
+	
+	public int getBalanceamento() {
+		int hDireita = 0;
+		int hEsquerda = 0;
+		
+		if(this.getDireita() != null){
+			hDireita = this.getDireita().getAltura();
+		}
+		if(this.getEsquerda() != null) {
+			hEsquerda = this.getEsquerda().getAltura();
+		}
+		
+		return hEsquerda - hDireita;
+	}
 }
