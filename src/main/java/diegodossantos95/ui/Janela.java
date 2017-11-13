@@ -20,22 +20,30 @@ import main.java.diegodossantos95.tradutor.Tradutor;
 
 public class Janela extends JFrame {
 	private Tradutor tradutor = new Tradutor();
-	private JPanel panel1 = new JPanel();
+	private JPanel panel = new JPanel();
+	private JPanel panelPesquisar = new JPanel();
+	private JPanel panelResultado = new JPanel();
 	private JButton pesquisar;
 	
 	public Janela() throws HeadlessException {
 		super("UNI-DicionarioAVL");
+		this.setLayout();
 		this.initTradutor();
-		this.initTraducao();
 		this.initSalvar();
+		this.initTraducao();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		panel1.setLayout(new BoxLayout(panel1, BoxLayout.PAGE_AXIS));
-		this.add(panel1);
+		this.add(panel);
 	}
 	
 	public void showJanela() {
-		this.setSize (640, 480);
+		this.setSize (640, 380);
 		this.setVisible(true);
+	}
+	
+	private void setLayout(){
+		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+		panel.add(panelPesquisar);
+		panel.add(panelResultado);
 	}
 	
 	private void initTradutor() {
@@ -44,21 +52,26 @@ public class Janela extends JFrame {
 	
 	private void initTraducao() {
 		JLabel label = new JLabel("Pesquisar por:");
-		panel1.add(label);
+		panelPesquisar.add(label);
 		
-		JTextField field = new JTextField();
-		panel1.add(field);
+		JTextField field = new JTextField(20);
+		panelPesquisar.add(field);
 		
 		JLabel label2 = new JLabel("Resultados:");
-		panel1.add(label2);
+		label2.setVisible(false);
+		panelResultado.add(label2);
 		
 		JList<String> list = new JList<String>();
-		panel1.add(list);
+		panelResultado.add(list);
 		
 		pesquisar = new JButton("Pesquisar");
 		ActionListener pesquisarListener = new ActionListener() {
 		  public void actionPerformed(ActionEvent e) {
 			  String palavra = field.getText();
+			  if(palavra.isEmpty()){
+				  return;
+			  }
+			  
 			  LinkedList<String> definicoes = tradutor.traduzPalavra(palavra);
 			  String[] array = definicoes.toArray(new String[definicoes.size()]);
 			  list.setListData(array);
@@ -72,7 +85,7 @@ public class Janela extends JFrame {
 		  }
 		};
 		pesquisar.addActionListener(pesquisarListener);
-		panel1.add(pesquisar);
+		panelPesquisar.add(pesquisar);
 	}
 	
 	private void initSalvar() {
@@ -84,14 +97,16 @@ public class Janela extends JFrame {
 		  }
 		};
 		salvar.addActionListener(salvarListener);
-		panel1.add(salvar);
+		panel.add(salvar);
 	}
 	
 	private void showAddDicionario(String palavra) {
-		String definicoes = JOptionPane.showInputDialog(this, "Palavra não encontrada, digite as traduções separado por virgula");
-		List<String> list = Arrays.asList(definicoes.split(","));
-		tradutor.insereTraducao(palavra, list);
-		pesquisar.doClick();
-		JOptionPane.showMessageDialog(this, "Tradução adicionada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+		String definicoes = JOptionPane.showInputDialog(this, "Palavra nï¿½o encontrada, digite as traduï¿½ï¿½es separado por virgula");
+		if(definicoes != null){
+			List<String> list = Arrays.asList(definicoes.split(","));
+			tradutor.insereTraducao(palavra, list);
+			pesquisar.doClick();
+			JOptionPane.showMessageDialog(this, "Traduï¿½ï¿½o adicionada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 }
