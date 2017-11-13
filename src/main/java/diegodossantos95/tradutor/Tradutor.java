@@ -29,7 +29,7 @@ public class Tradutor {
 		}
 	}
 	
-	public List<String> traduzPalavra(String palavra) {
+	public LinkedList<String> traduzPalavra(String palavra) {
 		/*
 		 * Traduz uma unica palavra. Este metodo
 		 * recebe como parametro a palavra a ser
