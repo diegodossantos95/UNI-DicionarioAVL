@@ -6,5 +6,5 @@
 - Java SDK 8
 
 ### Run
-1- Importar o projeto no Eclipse
-2- Rodar o main
+ 1. Importar o projeto no Eclipse
+ 2. Rodar o main
