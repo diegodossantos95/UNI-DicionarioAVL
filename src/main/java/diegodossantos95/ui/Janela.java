@@ -3,13 +3,16 @@ package main.java.diegodossantos95.ui;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -18,6 +21,7 @@ import main.java.diegodossantos95.tradutor.Tradutor;
 public class Janela extends JFrame {
 	private Tradutor tradutor = new Tradutor();
 	private JPanel panel1 = new JPanel();
+	private JButton pesquisar;
 	
 	public Janela() throws HeadlessException {
 		super("UNI-DicionarioAVL");
@@ -45,13 +49,13 @@ public class Janela extends JFrame {
 		JTextField field = new JTextField();
 		panel1.add(field);
 		
-		JLabel label2 = new JLabel();
+		JLabel label2 = new JLabel("Resultados:");
 		panel1.add(label2);
 		
 		JList<String> list = new JList<String>();
 		panel1.add(list);
 		
-		JButton pesquisar = new JButton("Pesquisar");
+		pesquisar = new JButton("Pesquisar");
 		ActionListener pesquisarListener = new ActionListener() {
 		  public void actionPerformed(ActionEvent e) {
 			  String palavra = field.getText();
@@ -60,9 +64,10 @@ public class Janela extends JFrame {
 			  list.setListData(array);
 			  
 			  if(definicoes.size() > 0) {
-				  label2.setText("Resultados:");
+				  label2.setVisible(true);
 			  }else{
-				  label2.setText("");
+				  label2.setVisible(false);
+				  showAddDicionario(palavra);
 			  }
 		  }
 		};
@@ -75,9 +80,18 @@ public class Janela extends JFrame {
 		ActionListener salvarListener = new ActionListener() {
 		  public void actionPerformed(ActionEvent e) {
 		    tradutor.salvaDicionario("dicionario.dat");
+		    JOptionPane.showMessageDialog(null, "Dicionario salvo com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 		  }
 		};
 		salvar.addActionListener(salvarListener);
 		panel1.add(salvar);
+	}
+	
+	private void showAddDicionario(String palavra) {
+		String definicoes = JOptionPane.showInputDialog(this, "Palavra não encontrada, digite as traduções separado por virgula");
+		List<String> list = Arrays.asList(definicoes.split(","));
+		tradutor.insereTraducao(palavra, list);
+		pesquisar.doClick();
+		JOptionPane.showMessageDialog(this, "Tradução adicionada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 	}
 }
