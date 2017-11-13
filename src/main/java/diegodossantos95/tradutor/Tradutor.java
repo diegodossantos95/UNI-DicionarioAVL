@@ -82,9 +82,7 @@ public class Tradutor {
 		}
 	}
 	
-	/*
-	 * Metodos privados
-	 */
+    //--------------METODOS PRIVADOS-----------------------
 	/**
 	 * Metodo para parsear a linha do arquivo 
 	 * em instancias da classe Dicionario

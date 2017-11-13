@@ -9,16 +9,38 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class Dicionario {
-	//TODO: Documentacao
-
+	/**
+	 * Propriedades utilizadas para o 
+	 * armazenamento da palavra e das definicoes
+	 */
 	private String palavra; 
 	private LinkedList<String> definicoes;
 	
-	// No
+	/**
+	 * Propriedades utilizadas para o 
+	 * controle de nós da arvore AVL
+	 */
 	private Dicionario pai;
 	private Dicionario esquerda;
 	private Dicionario direita;
 	
+	/**
+	 * Construtor da classe Dicionario
+	 * Recebe como parametro a palavra e as definicoes
+	 * Executa um sort das definicoes após adicionar elas na instancia
+	 * @param palavra
+	 * @param definicoes
+	 */
+	public Dicionario(String palavra, List<String> definicoes) {
+		super();
+		this.palavra = palavra;
+		this.definicoes = new LinkedList<String>(definicoes);
+		Collections.sort(this.definicoes);
+	}
+	
+	/**
+	 * Getters and setters
+	 */
 	public Dicionario getPai() {
 		return pai;
 	}
@@ -43,13 +65,6 @@ public class Dicionario {
 		this.direita = direita;
 	}
 	
-	public Dicionario(String palavra, List<String> definicoes) {
-		super();
-		this.palavra = palavra;
-		this.definicoes = new LinkedList<String>(definicoes);
-		Collections.sort(this.definicoes);
-	}
-	
 	public LinkedList<String> getDefinicoes(){
 		return this.definicoes;
 	}
@@ -57,7 +72,11 @@ public class Dicionario {
 	public String getPalavra() {
 		return palavra;
 	}
-
+	
+	/**
+	 * Metodo utilizado para transformar a 
+	 * instancia Dicionario em String
+	 */
 	@Override
 	public String toString() {
 		LinkedList<String> conteudo = this.definicoes;
@@ -65,19 +84,27 @@ public class Dicionario {
 		return String.join("#", conteudo);
 	}
 	
+	/**
+	 * Compara as palavras ignorando acentos e case
+	 * Retorna 0 se for igual
+	 * Retorna -1 se o comparador for menor que base
+	 * Retorna 1 se o comparador for maior que base
+	 * @param comparador
+	 * @return
+	 */
 	public Integer compararPalavra(String comparador){
-		/*
-		 * Compara as palavras ignorando acentos e case
-		 * Retorna 0 se for igual
-		 * Retorna -1 se o comparador for menor que base
-		 * Retorna 1 se o comparador for maior que base
-		 */
 		Collator collator = Collator.getInstance(Locale.US);
         collator.setStrength(Collator.PRIMARY);
         
         return collator.compare(comparador, this.palavra);
 	}
 	
+	/**
+	 * Método para fazer o merge das definicoes
+	 * Recebe como parametro uma linkedlist de definicoes
+	 * E faz o merge, mantendo o sorting, com as definicoes da instancia
+	 * @param novasDefinicoes
+	 */
 	public void mergeDefinicoes(LinkedList<String> novasDefinicoes) {
 		if(novasDefinicoes == null || novasDefinicoes.isEmpty()) {
 			return;
@@ -87,6 +114,12 @@ public class Dicionario {
 		this.definicoes = new LinkedList<String>(temp);
 	}
 	
+	/**
+	 * Metodo recursivo para calcular a 
+	 * altura das subarvores deste nodo
+	 * Retorna o valor em um int
+	 * @return
+	 */
 	public int getAltura() {
 		if (this.getEsquerda() == null && this.getDireita() == null) {
 			return 0;
@@ -102,6 +135,11 @@ public class Dicionario {
 		}
 	}
 	
+	/**
+	 * Calcula o balanceamento do nodo
+	 * Retorna o valor em um int
+	 * @return
+	 */
 	public int getBalanceamento() {
 		int hDireita = 0;
 		int hEsquerda = 0;
