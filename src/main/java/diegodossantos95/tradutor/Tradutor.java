@@ -11,6 +11,11 @@ import java.util.stream.Stream;
 
 import main.java.diegodossantos95.arvore.ArvoreAVL;
 
+/**
+ * Classe do tradutor
+ * @author i848202
+ *
+ */
 public class Tradutor {
 	/**
 	 * Referencia a arvore utilizada

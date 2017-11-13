@@ -8,6 +8,11 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
 
+/**
+ * Classe do dicionario e nodo da arvore AVL
+ * @author i848202
+ *
+ */
 public class Dicionario {
 	/**
 	 * Propriedades utilizadas para o 

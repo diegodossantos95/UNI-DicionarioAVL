@@ -18,6 +18,12 @@ import javax.swing.JTextField;
 
 import main.java.diegodossantos95.tradutor.Tradutor;
 
+
+/**
+ * Classe da interface, não tem documentação pois não é importante para o exercicio
+ * @author i848202
+ *
+ */
 public class Janela extends JFrame {
 	private Tradutor tradutor = new Tradutor();
 	private JPanel panel = new JPanel();
